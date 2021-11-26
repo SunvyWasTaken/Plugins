@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SunLibrary",
+	"Description": "Ancienne Etudiant de Poly3D. Et vous pouvez aussi remercier ZINO #RealGOD",
+	"Category": "Other",
+	"CreatedBy": "Keanu Vongue",
+	"CreatedByURL": "https://github.com/SunvyWasTaken",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "SunLibrary",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen"
+		}
+	]
+}
