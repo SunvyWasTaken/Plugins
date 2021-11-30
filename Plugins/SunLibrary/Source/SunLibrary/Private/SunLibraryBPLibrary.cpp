@@ -283,6 +283,6 @@ void USunLibraryBPLibrary::F_AddShadowResolution(UComboBoxString* target)
 void USunLibraryBPLibrary::F_AddOverall(UComboBoxString* target)
 {
 	F_AddQuality(target);
-	target->SetSelectedIndex(UGameUserSettings::GetGameUserSettings()->GetOverallScalabilityLevel());
+	//target->SetSelectedIndex(UGameUserSettings::GetGameUserSettings()->GetOverallScalabilityLevel());
 }
 
