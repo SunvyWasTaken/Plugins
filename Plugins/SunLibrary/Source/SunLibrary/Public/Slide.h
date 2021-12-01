@@ -21,18 +21,24 @@ class SUNLIBRARY_API USlide : public UUserWidget
 private:
 
 	UFUNCTION()
+	void FOnChangeSlide(float Value);
+
+	UFUNCTION()
 	void FSetDisplayPercentage(float Value);
 
 protected:
+
+	UFUNCTION(BlueprintNativeEvent, meta=(DisplayName ="CustomText"))
+	void FCustomText(float Value);
 
 	UPROPERTY(BlueprintReadOnly)
 	FText CurrentText;
 
 	UPROPERTY(meta = (BindWidget))
-		class USlider* Slider;
+	class USlider* Slider;
 
 	UPROPERTY(meta =(BindWidget))
-		class UTextBlock* TextPercent;
+	class UTextBlock* TextPercent;
 
 public:
 
@@ -42,13 +48,16 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere)
-		float StepSize;
+	float StepSize;
 
-	UPROPERTY(EditAnywhere)
-		float MinValue;
+	UPROPERTY(EditAnywhere, AdvancedDisplay)
+	bool IsCustomText = 0;
 
-	UPROPERTY(EditAnywhere)
-		float MaxValue;
+	UPROPERTY(EditAnywhere, meta = (EditCondition = "IsCustomText"), AdvancedDisplay)
+	float MinValue;
+
+	UPROPERTY(EditAnywhere, meta = (EditCondition = "IsCustomText"), AdvancedDisplay)
+	float MaxValue;
 
 public:
 

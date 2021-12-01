@@ -62,7 +62,7 @@ void USunLibraryBPLibrary::F_SetResolution(FString SourceString)
 	TArray<FIntPoint> TResolution;
 	TArray<FString> FResolution;
 	UKismetSystemLibrary::GetSupportedFullscreenResolutions(TResolution);
-	for (size_t i = 0; i < TResolution.Num(); i++)
+	for (int i = 0; i < TResolution.Num(); i++)
 	{
 		FIntPoint CurrentResolution = TResolution[i];
 		FString A = FString::FromInt(CurrentResolution.X);
@@ -112,7 +112,7 @@ void USunLibraryBPLibrary::F_SetAxis(UInputKeySelector* Target, FName InAxisName
 	UInputSettings* InputSetting = UInputSettings::GetInputSettings();
 	TArray<FInputAxisKeyMapping> OutMapping;
 	InputSetting->GetAxisMappingByName(InAxisName, OutMapping);
-	for (size_t i = 0; i < OutMapping.Num(); i++)
+	for (int i = 0; i < OutMapping.Num(); i++)
 	{
 		if (OutMapping[i].Scale == Scale && OutMapping[i].Key.IsGamepadKey() == bManette)
 		{
@@ -128,7 +128,7 @@ void USunLibraryBPLibrary::F_BindAction(FInputChord InputChord, FName InActionNa
 	UInputSettings* InputSetting = UInputSettings::GetInputSettings();
 	TArray<FInputActionKeyMapping> OutMapping;
 	InputSetting->GetActionMappingByName(InActionName,OutMapping);
-	for (size_t i = 0; i < OutMapping.Num(); i++)
+	for (int i = 0; i < OutMapping.Num(); i++)
 	{
 		if (OutMapping[i].Key.IsGamepadKey() == bManette)
 		{
@@ -150,7 +150,7 @@ void USunLibraryBPLibrary::F_BindAxis(FInputChord InputChord, FName InAxisName, 
 	UInputSettings* InputSetting = UInputSettings::GetInputSettings();
 	TArray<FInputAxisKeyMapping> OutMapping;
 	InputSetting->GetAxisMappingByName(InAxisName, OutMapping);
-	for (size_t i = 0; i < OutMapping.Num(); i++)
+	for (int i = 0; i < OutMapping.Num(); i++)
 	{
 		if (OutMapping[i].Scale == Scale && OutMapping[i].Key.IsGamepadKey() == bManette)
 		{
@@ -172,13 +172,13 @@ bool USunLibraryBPLibrary::F_IsAnyActionSame(FInputChord InputChord, FName InNam
 	UInputSettings* InputSettings = UInputSettings::GetInputSettings();
 	TArray<FName> TActionNames;
 	InputSettings->GetActionNames(TActionNames);
-	for (size_t i = 0; i < TActionNames.Num(); i++)
+	for (int i = 0; i < TActionNames.Num(); i++)
 	{
 		if (TActionNames[i] != InName)
 		{
 			TArray<FInputActionKeyMapping> OutMapping;
 			InputSettings->GetActionMappingByName(TActionNames[i], OutMapping);
-			for (size_t a = 0; a < OutMapping.Num(); a++)
+			for (int a = 0; a < OutMapping.Num(); a++)
 			{
 				FInputChord CompardKey = FInputChord(OutMapping[i].Key, OutMapping[i].bShift, OutMapping[i].bCtrl, OutMapping[i].bAlt, OutMapping[i].bCmd);
 					if (CompardKey == InputChord)
@@ -197,12 +197,12 @@ bool USunLibraryBPLibrary::F_IsAnyAxisSame(FInputChord InputChord, float Scale, 
 	TArray<FName> TAxisNames;
 	InputSettings->GetActionNames(TAxisNames);
 	TArray<FInputAxisKeyMapping> OutMapping;
-	for (size_t i = 0; i < TAxisNames.Num(); i++)
+	for (int i = 0; i < TAxisNames.Num(); i++)
 	{
 		if (TAxisNames[i] != InName)
 		{
 			InputSettings->GetAxisMappingByName(TAxisNames[i], OutMapping);
-			for (size_t a = 0; a < OutMapping.Num(); a++)
+			for (int a = 0; a < OutMapping.Num(); a++)
 			{
 				if (OutMapping[a].Key == InputChord.Key)
 				{
@@ -213,7 +213,7 @@ bool USunLibraryBPLibrary::F_IsAnyAxisSame(FInputChord InputChord, float Scale, 
 		else
 		{
 			InputSettings->GetAxisMappingByName(InName, OutMapping);
-			for (size_t a = 0; a < OutMapping.Num(); a++)
+			for (int a = 0; a < OutMapping.Num(); a++)
 			{
 				if (OutMapping[a].Scale != Scale)
 				{
@@ -227,11 +227,11 @@ bool USunLibraryBPLibrary::F_IsAnyAxisSame(FInputChord InputChord, float Scale, 
 
 void USunLibraryBPLibrary::F_DisplayWidget(TSubclassOf<UUserWidget>ClassWidget, APlayerController* PlayerController,UUserWidget*& ReturnValue)
 {
-	UUserWidget* CurrentWidget = CreateWidget(PlayerController, ClassWidget);
-	ReturnValue = CurrentWidget;
-	CurrentWidget->AddToViewport();
-	PlayerController->bShowMouseCursor = true;
-	UWidgetBlueprintLibrary::SetInputMode_UIOnly(PlayerController,CurrentWidget);
+	//UUserWidget* CurrentWidget = CreateWidget(PlayerController, ClassWidget);
+	//ReturnValue = CurrentWidget;
+	//CurrentWidget->AddToViewport();
+	//PlayerController->bShowMouseCursor = true;
+	//UWidgetBlueprintLibrary::SetInputMode_UIOnly(PlayerController,CurrentWidget);
 	return;
 }
 

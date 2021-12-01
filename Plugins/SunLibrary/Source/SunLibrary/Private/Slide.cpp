@@ -9,21 +9,46 @@ bool USlide::Initialize()
 {
 	Super::Initialize();
 	Slider->SetStepSize(StepSize);
-	Slider->SetMinValue(MinValue);
-	Slider->SetMaxValue(MaxValue);
-	Slider->OnValueChanged.AddDynamic(this, &USlide::FSetDisplayPercentage);
+	if (IsCustomText)
+	{
+		Slider->SetMinValue(MinValue);
+		Slider->SetMaxValue(MaxValue);
+	}
+	else
+	{
+		Slider->SetMinValue(0);
+		Slider->SetMaxValue(1);
+		FSetDisplayPercentage(CurrentValue);
+	}
+	Slider->OnValueChanged.AddDynamic(this, &USlide::FOnChangeSlide);
 	return true;
+}
+
+void USlide::FOnChangeSlide(float Value)
+{
+	OnChange.Broadcast(Value);
+	CurrentValue = Value;
+	if (!IsCustomText)
+	{
+		FSetDisplayPercentage(Value);
+	}
+	else
+		FCustomText(Value);
+	return;
 }
 
 void USlide::FSetDisplayPercentage(float value)
 {
-	CurrentValue = value;
-	OnChange.Broadcast(value);
 	FNumberFormattingOptions* Option = new FNumberFormattingOptions();
 	Option->SetAlwaysSign(false);
 	Option->SetUseGrouping(true);
 	Option->SetMinimumFractionalDigits(0);
 	Option->SetMaximumFractionalDigits(0);
 	CurrentText = FText::AsPercent(value, Option);
+	return;
+}
+
+void USlide::FCustomText_Implementation(float Value)
+{
 	return;
 }
