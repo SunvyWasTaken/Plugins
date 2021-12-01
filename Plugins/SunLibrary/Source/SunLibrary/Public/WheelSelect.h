@@ -18,6 +18,8 @@ class SUNLIBRARY_API UWheelSelect : public UUserWidget
 
 		virtual bool Initialize();
 
+		virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent);
+
 private:
 
 	UPROPERTY()

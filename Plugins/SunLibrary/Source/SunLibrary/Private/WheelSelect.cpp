@@ -15,6 +15,16 @@ bool UWheelSelect::Initialize()
 	return true;
 }
 
+/** 
+* Lorsque le widget reçois le Focus le redirige Directement sur Le Button BForGamepad
+*/
+FReply UWheelSelect::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)
+{
+	Super::NativeOnFocusReceived(InGeometry, InFocusEvent);
+	BForGamepad->SetKeyboardFocus();
+	return FReply::Handled();
+}
+
 void UWheelSelect::F_MoveWheel(int Value)
 {
 	if (Options.Num()<=0)
