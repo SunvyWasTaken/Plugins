@@ -9,14 +9,33 @@
 /**
  * Roue de selection personnaliser
  */
-UCLASS()
+UCLASS(meta=(DisplayName="Wheel Selector"))
 class SUNLIBRARY_API UWheelSelect : public UUserWidget
 {
 	GENERATED_BODY()
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnChange,int,index);
+
 		virtual bool Initialize();
 
 private:
+
+	UPROPERTY()
+	int SelectIndex;
+
+	UFUNCTION()
+	void BLeftClick();
+
+	UFUNCTION()
+	void BRightClick();
+
+protected:
+
+	UPROPERTY()
+	FText DisplayText;
+
+	UFUNCTION(BlueprintCallable, meta=(DisplayName="MoveWheel"))
+	void F_MoveWheel(int Value);
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* BLeft;
@@ -27,22 +46,28 @@ private:
 	UPROPERTY(meta=(BindWidget))
 	class UTextBlock* Text_C;
 
-	UFUNCTION()
-	void BLeftClick();
-
-	UFUNCTION()
-	void BRightClick();
-
-	UFUNCTION()
-	void MoveWheel(int Value);
-
-	UPROPERTY()
-	int SelectIndex;
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	class UButton* BForGamepad;
 
 public:
+	
+	UFUNCTION(BlueprintCallable, meta=(DisplayName="SetIndex", Keywords="Index"))
+	void F_SetSelectedIndex(int Index);
 
-	UPROPERTY(EditAnywhere)
-	FText DisplayText;
+	UFUNCTION(BlueprintPure, meta = (DisplayName = "GetIndex", Keywords = "Index"))
+	int F_GetSelectedIndex();
+
+	UFUNCTION(BlueprintPure)
+	bool IsLoopEnable();
+
+	UFUNCTION(BlueprintPure)
+	bool LeftIsEnable();
+
+	UFUNCTION(BlueprintPure)
+	bool RightIsEnable();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnChange OnChange;
 
 	UPROPERTY(EditAnywhere, AdvancedDisplay)
 	bool bLoop;
@@ -51,6 +76,14 @@ public:
 	TArray<FText> Options;
 
 	UPROPERTY(EditAnywhere)
-	FText DefaultOption;
+	int32 DefaultOption;
+
+	/** A bindable delegate to allow logic to drive the text of the widget */
+	UPROPERTY()
+	FGetInt32 DefaultOptionDelegate;
+
+	protected:
+
+		PROPERTY_BINDING_IMPLEMENTATION(int32, DefaultOption);
 	
 };

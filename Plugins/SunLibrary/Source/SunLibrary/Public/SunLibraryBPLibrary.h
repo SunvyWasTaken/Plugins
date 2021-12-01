@@ -89,13 +89,4 @@ class USunLibraryBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "RemoveWidget", Keywords = "Widget"), Category = "Widget")
 		static void F_RemoveWidget(UUserWidget* Target, APlayerController* PlayerController);
-
-	UFUNCTION(meta = (DisplayName = "AddQuality", Keywords = "Quality"), Category="Widget")
-	static void F_AddQuality(UComboBoxString* target);
-
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "AddShadowResolution", Keywords = "Shadow"), Category = "Widget")
-		static void  F_AddShadowResolution(UComboBoxString* target);
-
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "AddOverallSettings", Keywords = "Overall"), Category = "Widget")
-	static void F_AddOverall(UComboBoxString* target);
 };
