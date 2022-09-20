@@ -1,3 +1,4 @@
+
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
@@ -25,6 +26,7 @@
 
 class UComboBoxString;
 class UInputKeySelector;
+
 
 UCLASS()
 class USunLibraryBPLibrary : public UBlueprintFunctionLibrary
@@ -55,7 +57,7 @@ class USunLibraryBPLibrary : public UBlueprintFunctionLibrary
 	// 
 	// /!\ Attention cet fonction ne prennd pas en compte si il y a plusieurs /!\
 	//touche avec le meme scale
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SetAction", Keywords = "Action"), Category = "KeyBind")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Set Action", Keywords = "Action"), Category = "KeyBind")
 		static void F_SetAction(UInputKeySelector* Target, FName InActionName, bool bManette);
 
 	//Set L'Input selectionner de l'InputKeySelector
@@ -63,12 +65,12 @@ class USunLibraryBPLibrary : public UBlueprintFunctionLibrary
 	// 
 	//		/!\ Attention cet fonction ne prennd pas en compte si il y a plusieurs /!\
 	//			touche avec le meme scale
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SetAxis", Keywords = "Axis"), Category = "KeyBind")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Set Axis", Keywords = "Axis"), Category = "KeyBind")
 		static void F_SetAxis(UInputKeySelector* Target, FName InAxisName, float Scale, bool bManette);
 	
 	//Bind InputChord a l'ActionName donner
 	//Et supprime l'ancinne action mappings
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "BindAction", Keywords = "Action"), Category = "KeyBind")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Bind Action", Keywords = "Action"), Category = "KeyBind")
 		static void F_BindAction(FInputChord InputChord, FName InActionName, bool bManette);
 
 	//Bind InputChord a l'AxisName donner
@@ -85,8 +87,11 @@ class USunLibraryBPLibrary : public UBlueprintFunctionLibrary
 		static bool F_IsAnyAxisSame(FInputChord InputChord, float Scale, FName InName);
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "DisplayWidget", Keywords = "Widget"), Category = "Widget")
-		static void F_DisplayWidget(TSubclassOf<UUserWidget>ClassWidget, APlayerController* PlayerController, UUserWidget*& ReturnValue);
+		static void F_DisplayWidget(TSubclassOf<UUserWidget>ClassWidget, APlayerController* PlayerController, bool ShowMousseCursor, UUserWidget*& ReturnValue);
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "RemoveWidget", Keywords = "Widget"), Category = "Widget")
 		static void F_RemoveWidget(UUserWidget* Target, APlayerController* PlayerController);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, meta = (DisplayName = "Minus", Keywords ="Minus"),Category="Math")
+	static float F_Minus(float value);
 };

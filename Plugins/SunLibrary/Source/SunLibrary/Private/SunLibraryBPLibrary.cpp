@@ -12,7 +12,7 @@
 #include "Components/InputKeySelector.h"
 
 USunLibraryBPLibrary::USunLibraryBPLibrary(const FObjectInitializer& ObjectInitializer)
-: Super(ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 
 }
@@ -225,13 +225,20 @@ bool USunLibraryBPLibrary::F_IsAnyAxisSame(FInputChord InputChord, float Scale, 
 	return false;
 }
 
-void USunLibraryBPLibrary::F_DisplayWidget(TSubclassOf<UUserWidget>ClassWidget, APlayerController* PlayerController,UUserWidget*& ReturnValue)
+void USunLibraryBPLibrary::F_DisplayWidget(TSubclassOf<UUserWidget> ClassWidget, APlayerController* PlayerController, bool ShowMousseCursor, UUserWidget*& ReturnValue)
 {
-	//UUserWidget* CurrentWidget = CreateWidget(PlayerController, ClassWidget);
-	//ReturnValue = CurrentWidget;
-	//CurrentWidget->AddToViewport();
-	//PlayerController->bShowMouseCursor = true;
-	//UWidgetBlueprintLibrary::SetInputMode_UIOnly(PlayerController,CurrentWidget);
+	UUserWidget* CurrentWidget = Cast<UUserWidget>(CreateWidget(PlayerController, ClassWidget));
+	ReturnValue = CurrentWidget;
+	CurrentWidget->AddToViewport();
+	PlayerController->bShowMouseCursor = ShowMousseCursor;
+	if (ShowMousseCursor)
+	{
+		UWidgetBlueprintLibrary::SetInputMode_UIOnly(PlayerController, CurrentWidget);
+	}
+	else
+	{
+		UWidgetBlueprintLibrary::SetInputMode_GameOnly(PlayerController);
+	}
 	return;
 }
 
@@ -241,4 +248,9 @@ void USunLibraryBPLibrary::F_RemoveWidget(UUserWidget* Target, APlayerController
 	PlayerController->bShowMouseCursor = false;
 	UWidgetBlueprintLibrary::SetInputMode_GameOnly(PlayerController);
 	return;
+}
+
+float USunLibraryBPLibrary::F_Minus(float value)
+{
+	return (value * -1);
 }
